@@ -1,16 +1,18 @@
 "use client";
 
 import { useSession, signIn, signOut } from "next-auth/react";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount, useBalance, useConnect, useDisconnect } from "wagmi";
 import { useUserStore } from "../store/userStore";
 import { useCartStore } from "../store/cartStore";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { formatEther } from "viem";
 
 export default function Header() {
   const { data: session } = useSession();
   const { address, isConnected } = useAccount();
+  const { data: balance } = useBalance({ address: address });
   const { connect, connectors } = useConnect();
   const { disconnect } = useDisconnect();
   const { setUser, setWalletAddress, setIsConnected, logout } = useUserStore();
@@ -132,6 +134,9 @@ export default function Header() {
               <div className="flex items-center space-x-2">
                 <span className="text-xs text-gray-600 dark:text-gray-400">
                   {address?.slice(0, 6)}...{address?.slice(-4)}
+                </span>
+                <span>
+                  {formatEther(balance?.value ?? BigInt(0))} {balance?.symbol}
                 </span>
                 <button
                   onClick={handleWalletDisconnect}

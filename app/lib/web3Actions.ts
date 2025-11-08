@@ -91,4 +91,3 @@ export function useRemoveFromFavorites() {
     isSuccess,
   };
 }
-
