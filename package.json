@@ -23,7 +23,8 @@
     "react-dom": "19.2.0",
     "viem": "^2.38.6",
     "wagmi": "^2.19.2",
-    "zustand": "^4.5.0"
+    "zustand": "^4.5.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-viem": "^3.0.1",
@@ -37,9 +38,6 @@
     "hardhat": "^3.0.0",
     "tailwindcss": "^4",
     "typescript": "^5"
-  },
-  "overrides": {
-    "zod": "^3.23.8"
   },
   "type": "module"
 }
