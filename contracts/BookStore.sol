@@ -6,8 +6,8 @@ contract BookStore {
         uint256 id;
         string title;
         string author;
-        uint256 price; // 价格以 wei 为单位
-        uint256 stock; // 库存
+        uint256 price; // Price in wei
+        uint256 stock; // Stock quantity
         bool exists;
     }
 
@@ -22,11 +22,17 @@ contract BookStore {
     address public owner;
     mapping(uint256 => Book) public books;
     mapping(address => Purchase[]) public purchases;
-    mapping(address => uint256[]) public favorites; // 用户收藏的书籍ID列表
+    mapping(address => uint256[]) public favorites; // Array of book IDs favorited by user
     uint256 public bookCount;
     uint256[] public bookIds;
 
-    event BookAdded(uint256 indexed bookId, string title, string author, uint256 price, uint256 stock);
+    event BookAdded(
+        uint256 indexed bookId,
+        string title,
+        string author,
+        uint256 price,
+        uint256 stock
+    );
     event BookPurchased(
         uint256 indexed bookId,
         address indexed buyer,
@@ -34,7 +40,10 @@ contract BookStore {
         uint256 totalPrice
     );
     event BookAddedToFavorites(address indexed user, uint256 indexed bookId);
-    event BookRemovedFromFavorites(address indexed user, uint256 indexed bookId);
+    event BookRemovedFromFavorites(
+        address indexed user,
+        uint256 indexed bookId
+    );
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Only owner can call this function");
@@ -51,7 +60,7 @@ contract BookStore {
         bookCount = 0;
     }
 
-    // 添加书籍（仅所有者）
+    // Add book (owner only)
     function addBook(
         string memory _title,
         string memory _author,
@@ -71,18 +80,23 @@ contract BookStore {
         emit BookAdded(bookCount, _title, _author, _price, _stock);
     }
 
-    // 获取所有书籍ID
+    // Get all book IDs
     function getAllBookIds() public view returns (uint256[] memory) {
         return bookIds;
     }
 
-    // 获取书籍信息
-    function getBook(uint256 _bookId) public view bookExists(_bookId) returns (Book memory) {
+    // Get book information
+    function getBook(
+        uint256 _bookId
+    ) public view bookExists(_bookId) returns (Book memory) {
         return books[_bookId];
     }
 
-    // 购买书籍
-    function purchaseBook(uint256 _bookId, uint256 _quantity) public payable bookExists(_bookId) {
+    // Purchase book
+    function purchaseBook(
+        uint256 _bookId,
+        uint256 _quantity
+    ) public payable bookExists(_bookId) {
         Book storage book = books[_bookId];
         require(book.stock >= _quantity, "Insufficient stock");
         require(msg.value >= book.price * _quantity, "Insufficient payment");
@@ -99,17 +113,22 @@ contract BookStore {
 
         purchases[msg.sender].push(purchase);
 
-        // 退还多余的支付
+        // Refund excess payment
         if (msg.value > book.price * _quantity) {
             payable(msg.sender).transfer(msg.value - book.price * _quantity);
         }
 
-        emit BookPurchased(_bookId, msg.sender, _quantity, book.price * _quantity);
+        emit BookPurchased(
+            _bookId,
+            msg.sender,
+            _quantity,
+            book.price * _quantity
+        );
     }
 
-    // 添加到收藏
+    // Add to favorites
     function addToFavorites(uint256 _bookId) public bookExists(_bookId) {
-        // 检查是否已经收藏
+        // Check if already favorited
         bool alreadyFavorited = false;
         for (uint256 i = 0; i < favorites[msg.sender].length; i++) {
             if (favorites[msg.sender][i] == _bookId) {
@@ -123,13 +142,13 @@ contract BookStore {
         emit BookAddedToFavorites(msg.sender, _bookId);
     }
 
-    // 从收藏中移除
+    // Remove from favorites
     function removeFromFavorites(uint256 _bookId) public {
         uint256[] storage userFavorites = favorites[msg.sender];
         bool found = false;
         for (uint256 i = 0; i < userFavorites.length; i++) {
             if (userFavorites[i] == _bookId) {
-                // 将最后一个元素移到当前位置，然后删除最后一个
+                // Move last element to current position, then remove last
                 userFavorites[i] = userFavorites[userFavorites.length - 1];
                 userFavorites.pop();
                 found = true;
@@ -140,18 +159,25 @@ contract BookStore {
         emit BookRemovedFromFavorites(msg.sender, _bookId);
     }
 
-    // 获取用户的收藏列表
-    function getUserFavorites(address _user) public view returns (uint256[] memory) {
+    // Get user's favorite list
+    function getUserFavorites(
+        address _user
+    ) public view returns (uint256[] memory) {
         return favorites[_user];
     }
 
-    // 获取用户的购买历史
-    function getUserPurchases(address _user) public view returns (Purchase[] memory) {
+    // Get user's purchase history
+    function getUserPurchases(
+        address _user
+    ) public view returns (Purchase[] memory) {
         return purchases[_user];
     }
 
-    // 检查用户是否收藏了某本书
-    function isFavorite(address _user, uint256 _bookId) public view returns (bool) {
+    // Check if user has favorited a book
+    function isFavorite(
+        address _user,
+        uint256 _bookId
+    ) public view returns (bool) {
         uint256[] memory userFavorites = favorites[_user];
         for (uint256 i = 0; i < userFavorites.length; i++) {
             if (userFavorites[i] == _bookId) {
@@ -161,14 +187,13 @@ contract BookStore {
         return false;
     }
 
-    // 提取合约余额（仅所有者）
+    // Withdraw contract balance (owner only)
     function withdraw() public onlyOwner {
         payable(owner).transfer(address(this).balance);
     }
 
-    // 获取合约余额
+    // Get contract balance
     function getBalance() public view returns (uint256) {
         return address(this).balance;
     }
 }
-

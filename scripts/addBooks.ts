@@ -11,6 +11,7 @@ async function main() {
   // Connect to network and get viem instance
   // According to Hardhat 3 docs: https://hardhat.org/docs/guides/using-viem
   const connection = await network.connect();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { viem } = connection as { viem: any };
 
   // Get wallet clients

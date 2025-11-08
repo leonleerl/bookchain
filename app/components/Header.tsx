@@ -6,7 +6,7 @@ import { useUserStore } from "../store/userStore";
 import { useCartStore } from "../store/cartStore";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const { data: session } = useSession();
@@ -15,6 +15,14 @@ export default function Header() {
   const { disconnect } = useDisconnect();
   const { setUser, setWalletAddress, setIsConnected, logout } = useUserStore();
   const { getItemCount } = useCartStore();
+  const [mounted, setMounted] = useState(false);
+
+  // Prevent hydration mismatch by only showing cart count on client
+  useEffect(() => {
+    setTimeout(() => {
+      setMounted(true);
+    }, 0);
+  }, []);
 
   useEffect(() => {
     if (session?.user) {
@@ -74,7 +82,7 @@ export default function Header() {
             className="relative text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-100"
           >
             Cart
-            {getItemCount() > 0 && (
+            {mounted && getItemCount() > 0 && (
               <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
                 {getItemCount()}
               </span>
