@@ -32,6 +32,12 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# hardhat
+cache/
+artifacts/
+typechain-types/
 
 # vercel
 .vercel
@@ -39,3 +45,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# google client secret
+client_secret_407893218852-sn61vkj50jfm25pj1mjub99b5lv3lpue.apps.googleusercontent.com.json

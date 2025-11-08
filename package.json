@@ -6,12 +6,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "hardhat": "hardhat",
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:sepolia": "hardhat run scripts/deploy.ts --network sepolia",
+    "add-books": "hardhat run scripts/addBooks.ts --network sepolia"
   },
   "dependencies": {
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "next": "16.0.1"
+    "next": "16.0.1",
+    "zustand": "^4.5.0",
+    "viem": "^2.0.0",
+    "wagmi": "^2.0.0",
+    "@tanstack/react-query": "^5.0.0",
+    "next-auth": "^4.24.0"
   },
   "devDependencies": {
     "typescript": "^5",
@@ -21,6 +31,13 @@
     "@tailwindcss/postcss": "^4",
     "tailwindcss": "^4",
     "eslint": "^9",
-    "eslint-config-next": "16.0.1"
+    "eslint-config-next": "16.0.1",
+    "hardhat": "^3.0.0",
+    "@nomicfoundation/hardhat-viem": "^2.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "dotenv": "^16.3.1",
+    "chai": "^4.3.0"
   }
 }
