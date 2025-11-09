@@ -4,437 +4,625 @@ import { sepolia } from "viem/chains";
 // Contract ABI (obtained from compiled artifacts)
 export const BOOKSTORE_ABI = [
   {
-    inputs: [],
-    stateMutability: "nonpayable",
-    type: "constructor",
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: true,
-        internalType: "uint256",
-        name: "bookId",
-        type: "uint256",
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "bookId",
+        "type": "uint256"
       },
       {
-        indexed: false,
-        internalType: "string",
-        name: "title",
-        type: "string",
+        "indexed": false,
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
       },
       {
-        indexed: false,
-        internalType: "string",
-        name: "author",
-        type: "string",
+        "indexed": false,
+        "internalType": "string",
+        "name": "author",
+        "type": "string"
       },
       {
-        indexed: false,
-        internalType: "uint256",
-        name: "price",
-        type: "uint256",
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
       },
       {
-        indexed: false,
-        internalType: "uint256",
-        name: "stock",
-        type: "uint256",
-      },
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "stock",
+        "type": "uint256"
+      }
     ],
-    name: "BookAdded",
-    type: "event",
+    "name": "BookAdded",
+    "type": "event"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: true,
-        internalType: "uint256",
-        name: "bookId",
-        type: "uint256",
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
       },
       {
-        indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "bookId",
-        type: "uint256",
-      },
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "bookId",
+        "type": "uint256"
+      }
     ],
-    name: "BookAddedToFavorites",
-    type: "event",
+    "name": "BookAddedToFavorites",
+    "type": "event"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: true,
-        internalType: "uint256",
-        name: "bookId",
-        type: "uint256",
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "bookId",
+        "type": "uint256"
       },
       {
-        indexed: true,
-        internalType: "address",
-        name: "buyer",
-        type: "address",
+        "indexed": true,
+        "internalType": "address",
+        "name": "buyer",
+        "type": "address"
       },
       {
-        indexed: false,
-        internalType: "uint256",
-        name: "quantity",
-        type: "uint256",
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "quantity",
+        "type": "uint256"
       },
       {
-        indexed: false,
-        internalType: "uint256",
-        name: "totalPrice",
-        type: "uint256",
-      },
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "totalPrice",
+        "type": "uint256"
+      }
     ],
-    name: "BookPurchased",
-    type: "event",
+    "name": "BookPurchased",
+    "type": "event"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
       },
       {
-        indexed: true,
-        internalType: "uint256",
-        name: "bookId",
-        type: "uint256",
-      },
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "bookId",
+        "type": "uint256"
+      }
     ],
-    name: "BookRemovedFromFavorites",
-    type: "event",
+    "name": "BookRemovedFromFavorites",
+    "type": "event"
   },
   {
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_bookId",
-        type: "uint256",
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "bookId",
+        "type": "uint256"
       },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newStock",
+        "type": "uint256"
+      }
     ],
-    name: "addToFavorites",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "BookStockUpdated",
+    "type": "event"
   },
   {
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        internalType: "string",
-        name: "_title",
-        type: "string",
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "bookId",
+        "type": "uint256"
       },
       {
-        internalType: "string",
-        name: "_author",
-        type: "string",
+        "indexed": false,
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
       },
       {
-        internalType: "uint256",
-        name: "_price",
-        type: "uint256",
+        "indexed": false,
+        "internalType": "string",
+        "name": "author",
+        "type": "string"
       },
       {
-        internalType: "uint256",
-        name: "_stock",
-        type: "uint256",
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
       },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "stock",
+        "type": "uint256"
+      }
     ],
-    name: "addBook",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "BookUpdated",
+    "type": "event"
   },
   {
-    inputs: [],
-    name: "getAllBookIds",
-    outputs: [
+    "inputs": [
       {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
+        "internalType": "string",
+        "name": "_title",
+        "type": "string"
       },
+      {
+        "internalType": "string",
+        "name": "_author",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_price",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_stock",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "name": "addBook",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "getBalance",
-    outputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "_bookId",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "name": "addToFavorites",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [],
+    "name": "bookCount",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "_bookId",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: "getBook",
-    outputs: [
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
       {
-        components: [
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "bookIds",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "books",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "author",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "stock",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "favorites",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllBookIds",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getBalance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_bookId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getBook",
+    "outputs": [
+      {
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "string",
-            name: "title",
-            type: "string",
+            "internalType": "string",
+            "name": "title",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "author",
-            type: "string",
+            "internalType": "string",
+            "name": "author",
+            "type": "string"
           },
           {
-            internalType: "uint256",
-            name: "price",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "price",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "stock",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "stock",
+            "type": "uint256"
           },
           {
-            internalType: "bool",
-            name: "exists",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "exists",
+            "type": "bool"
+          }
         ],
-        internalType: "struct BookStore.Book",
-        name: "",
-        type: "tuple",
-      },
+        "internalType": "struct BookStore.Book",
+        "name": "",
+        "type": "tuple"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_user",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_bookId",
-        type: "uint256",
-      },
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      }
     ],
-    name: "isFavorite",
-    outputs: [
+    "name": "getUserFavorites",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      }
     ],
-    name: "books",
-    outputs: [
+    "name": "getUserPurchases",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "title",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "author",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "price",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "stock",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "exists",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "bookCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "owner",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_bookId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_quantity",
-        type: "uint256",
-      },
-    ],
-    name: "purchaseBook",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_bookId",
-        type: "uint256",
-      },
-    ],
-    name: "removeFromFavorites",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_user",
-        type: "address",
-      },
-    ],
-    name: "getUserFavorites",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_user",
-        type: "address",
-      },
-    ],
-    name: "getUserPurchases",
-    outputs: [
-      {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "bookId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "bookId",
+            "type": "uint256"
           },
           {
-            internalType: "address",
-            name: "buyer",
-            type: "address",
+            "internalType": "address",
+            "name": "buyer",
+            "type": "address"
           },
           {
-            internalType: "uint256",
-            name: "quantity",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "quantity",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "totalPrice",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "totalPrice",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "timestamp",
-            type: "uint256",
-          },
+            "internalType": "uint256",
+            "name": "timestamp",
+            "type": "uint256"
+          }
         ],
-        internalType: "struct BookStore.Purchase[]",
-        name: "",
-        type: "tuple[]",
-      },
+        "internalType": "struct BookStore.Purchase[]",
+        "name": "",
+        "type": "tuple[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "withdraw",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_bookId",
+        "type": "uint256"
+      }
+    ],
+    "name": "isFavorite",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_bookId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_quantity",
+        "type": "uint256"
+      }
+    ],
+    "name": "purchaseBook",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "purchases",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "bookId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "quantity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalPrice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "timestamp",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_bookId",
+        "type": "uint256"
+      }
+    ],
+    "name": "removeFromFavorites",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_bookId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_title",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_author",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_price",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_stock",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateBook",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_bookId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_newStock",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateBookStock",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
 ] as const;
 
 // Create public client (for reading contract data)

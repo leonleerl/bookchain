@@ -45,6 +45,16 @@ contract BookStore {
         uint256 indexed bookId
     );
 
+    event BookStockUpdated(uint256 indexed bookId, uint256 newStock);
+
+    event BookUpdated(
+        uint256 indexed bookId,
+        string title,
+        string author,
+        uint256 price,
+        uint256 stock
+    );
+
     modifier onlyOwner() {
         require(msg.sender == owner, "Only owner can call this function");
         _;
@@ -58,6 +68,31 @@ contract BookStore {
     constructor() {
         owner = msg.sender;
         bookCount = 0;
+    }
+
+    // Update book stock (owner only)
+    function updateBookStock(
+        uint256 _bookId,
+        uint256 _newStock
+    ) public onlyOwner bookExists(_bookId) {
+        books[_bookId].stock = _newStock;
+        emit BookStockUpdated(_bookId, _newStock);
+    }
+
+    // Update Book (owner only)
+    function updateBook(
+        uint256 _bookId,
+        string memory _title,
+        string memory _author,
+        uint256 _price,
+        uint256 _stock
+    ) public onlyOwner bookExists(_bookId) {
+        Book storage book = books[_bookId];
+        book.title = _title;
+        book.author = _author;
+        book.price = _price;
+        book.stock = _stock;
+        emit BookUpdated(_bookId, _title, _author, _price, _stock);
     }
 
     // Add book (owner only)

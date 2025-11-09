@@ -11,7 +11,8 @@
     "compile": "hardhat compile",
     "test": "hardhat test",
     "deploy:sepolia": "hardhat run scripts/deploy.ts --network sepolia",
-    "add-books": "hardhat run scripts/addBooks.ts --network sepolia"
+    "add-books": "hardhat run scripts/addBooks.ts --network sepolia",
+    "update-book-stock": "hardhat run scripts/updateBookStock.ts --network sepolia"
   },
   "dependencies": {
     "@reown/appkit": "^1.8.13",
